@@ -1,0 +1,40 @@
+services:
+  api:
+    build: backend
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./backend:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+      - db_migrate
+    env_file:
+      - backend/.env
+      - backend/.env.override
+  db_migrate:
+    build: backend
+    command: python manage.py migrate
+    volumes:
+      - ./backend:/app
+    depends_on:
+      - db
+    env_file:
+      - backend/.env
+      - backend/.env.override
+  frontend:
+    build: frontend
+    command: npm start -- --host 0.0.0.0
+    volumes:
+      - ./frontend:/app
+    ports:
+      - "4200:4200"
+    depends_on:
+      - api
+  db:
+    image: postgres:15
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data
+    env_file:
+      - backend/.env
+      - backend/.env.override

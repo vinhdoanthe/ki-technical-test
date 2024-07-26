@@ -1,0 +1,11 @@
+.env.override
+
+**/**.py[cod]
+
+__pycache__/
+
+.idea/
+.vscode/
+
+db.sqlite3
+
