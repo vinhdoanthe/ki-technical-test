@@ -1,4 +1,4 @@
-FROM --platform=linux/x86_64 node:22
+FROM node:alpine
 
 # Set the working directory
 WORKDIR /app

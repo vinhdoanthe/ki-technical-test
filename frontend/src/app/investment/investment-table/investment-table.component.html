@@ -1,0 +1,28 @@
+<ng-form>
+  <div class="row col-12 pt-3 pb-3">
+    <div class="form-group col-5">
+      <label for="ville">ville</label>
+      <input type="text" class="form-control" id="ville" name="ville" [(ngModel)]="ville">
+    </div>
+    <div class="form-group col-5">
+      <label for="etat_d_avancement">etat_d_avancement</label>
+      <input type="text" class="form-control" id="etat_d_avancement" name="etat_d_avancement" [(ngModel)]="etat_d_avancement">
+    </div>
+    <div class="col-2 align-content-end">
+      <button type="button" class="btn btn-primary" (click)="filter_investments()">Filter</button>
+    </div>
+  </div>
+</ng-form>
+
+
+@if(!isLoadingInvestments) {
+  <ag-grid-angular
+    class="ag-theme-quartz"
+    style="height: 500px;"
+    [rowData]="investments"
+    [columnDefs]="columnDefs"
+    [pagination]="true"
+  ></ag-grid-angular>
+} @else {
+  <p>Loading...</p>
+}
