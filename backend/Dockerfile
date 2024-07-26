@@ -1,4 +1,4 @@
-FROM --platform=linux/x86_64 python:3.12
+FROM python:3.12
 
 # Set the working directory
 WORKDIR /app

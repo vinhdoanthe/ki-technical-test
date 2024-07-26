@@ -8,11 +8,12 @@ services:
       - "8000:8000"
     depends_on:
       - db
-      - db_migrate
+      - migrate_db
     env_file:
       - backend/.env
       - backend/.env.override
-  db_migrate:
+    restart: always
+  migrate_db:
     build: backend
     command: python manage.py migrate
     volumes:
@@ -31,10 +32,16 @@ services:
       - "4200:4200"
     depends_on:
       - api
+    restart: always
   db:
     image: postgres:15
+    platform: linux/x86_64
     volumes:
       - ./postgres_data:/var/lib/postgresql/data
-    env_file:
-      - backend/.env
-      - backend/.env.override
+    ports:
+      - "55432:5432"
+    environment:
+      - POSTGRES_USER=investment_portfolio
+      - POSTGRES_PASSWORD=investment_portfolio
+      - POSTGRES_DB=investment_portfolio
+    restart: on-failure
