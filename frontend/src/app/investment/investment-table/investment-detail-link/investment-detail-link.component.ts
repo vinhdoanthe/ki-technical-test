@@ -25,8 +25,4 @@ export class InvestmentDetailLinkComponent implements ICellRendererAngularComp {
     return false
   }
 
-  invokeDetailLink() {
-    console.log('invokeDetailLink')
-  }
-
 }

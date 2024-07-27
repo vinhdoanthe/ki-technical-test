@@ -1,20 +1,46 @@
-<div class="pt-3 pb-1">
-  <h1>Investment {{investment.id}} - {{investment.codeuai}}</h1>
-  <div class="row pt-1">
-    <div *ngFor="let item of investment|keyvalue" class="col-6">
-      <div class="row">
-        <div class="col-6">
-          <label>{{item.key}}</label>
-        </div>
-        <div class="col-6">
-          <p><em>{{item.value}}</em></p>
+@if(!editMode) {
+  <div class="pt-3 pb-1">
+    <h1>Investment {{investment.id}} - {{investment.codeuai}}</h1>
+    <div class="row pt-1">
+      <div *ngFor="let item of investment|keyvalue" class="col-6">
+        <div class="row">
+          <div class="col-6">
+            <label>{{item.key}}</label>
+          </div>
+          <div class="col-6">
+            <p><em>{{item.value}}</em></p>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 
-<div>
-  <button type="button" class="btn btn-outline-secondary" (click)="goBack()">Back</button>
-  <a routerLink="/investments/{{investment.id}}/edit" class="btn btn-outline-primary">Edit</a>
-</div>
+  <div>
+    <button type="button" class="btn btn-outline-secondary" (click)="goBack()">Back</button>
+    <a class="btn btn-outline-primary" (click)="onClickEdit()">Edit</a>
+  </div>
+  <div class="pt-3">
+    <h2>Investment's location</h2>
+    <google-map></google-map>
+  </div>
+}
+@else {
+  <form [formGroup]="investmentForm" (ngSubmit)="onSubmit()">
+    <div class="row">
+      <div *ngFor="let control of investmentForm.controls|keyvalue" class="col-6">
+        <div class="row">
+          <div class="col-6">
+            <label>{{control.key}}</label>
+          </div>
+          <div class="col-6">
+            <input type="text" formControlName="{{control.key}}" id="{{control.key}}" name="{{control.key}}">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <button type="button" class="btn btn-outline-secondary" (click)="onClickCancel()">Cancel</button>
+      <button type="submit" class="btn btn-outline-primary" >Save</button>
+    </div>
+  </form>
+}

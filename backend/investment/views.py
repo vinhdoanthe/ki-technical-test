@@ -4,8 +4,7 @@ from investment.models import Investment
 from investment.serializers import InvestmentSerializer
 from rest_framework.generics import (
     ListAPIView,
-    RetrieveAPIView,
-    UpdateAPIView,
+    RetrieveUpdateAPIView,
 )
 
 
@@ -16,11 +15,6 @@ class InvestmentListView(ListAPIView):
     filterset_class = InvestmentFilter
 
 
-class InvestmentDetailView(RetrieveAPIView):
-    queryset = Investment.objects.all()
-    serializer_class = InvestmentSerializer
-
-
-class InvestmentUpdateView(UpdateAPIView):
+class InvestmentDetailUpdateView(RetrieveUpdateAPIView):
     queryset = Investment.objects.all()
     serializer_class = InvestmentSerializer

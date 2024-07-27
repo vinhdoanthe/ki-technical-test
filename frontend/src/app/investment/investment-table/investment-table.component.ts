@@ -52,7 +52,6 @@ export class InvestmentTableComponent implements OnInit {
   etat_d_avancement: any;
 
   filter_investments() {
-    console.log('filtering investments')
     this.isLoadingInvestments = true
     this.investmentService.getInvestments(
       this.ville,
