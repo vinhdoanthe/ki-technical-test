@@ -1,9 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {InvestmentService} from "../investment.service";
 import {AsyncPipe, NgForOf, NgIf} from "@angular/common";
-import { AgGridAngular } from 'ag-grid-angular'; // Angular Data Grid Component
-import { ColDef } from 'ag-grid-community';
-import {FormsModule} from "@angular/forms"; // Column Definition Type Interface
+import {AgGridAngular} from 'ag-grid-angular'; // Angular Data Grid Component
+import {ColDef} from 'ag-grid-community';
+import {FormsModule} from "@angular/forms";
+import {InvestmentDetailLinkComponent} from "./investment-detail-link/investment-detail-link.component"; // Column Definition Type Interface
 
 @Component({
   selector: 'app-investment-table',
@@ -37,8 +38,12 @@ export class InvestmentTableComponent implements OnInit {
   }
 
   columnDefs: ColDef[] = [
-    { field: 'ville' },
-    { field: 'etat_d_avancement' },
+    {field: 'ville'},
+    {field: 'etat_d_avancement'},
+    {
+      field: 'actions',
+      cellRenderer: InvestmentDetailLinkComponent,
+    }
   ];
   ville: any;
   etat_d_avancement: any;

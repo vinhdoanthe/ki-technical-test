@@ -27,4 +27,10 @@ export class InvestmentService {
       { params: filter_params }
     );
   }
+
+  public getInvestment(id: number) {
+    return this.http.get(
+      `${environment.API_URL}/investments/${id}/`
+    );
+  }
 }
