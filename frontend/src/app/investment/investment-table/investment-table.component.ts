@@ -4,7 +4,8 @@ import {AsyncPipe, NgForOf, NgIf} from "@angular/common";
 import {AgGridAngular} from 'ag-grid-angular'; // Angular Data Grid Component
 import {ColDef} from 'ag-grid-community';
 import {FormsModule} from "@angular/forms";
-import {InvestmentDetailLinkComponent} from "./investment-detail-link/investment-detail-link.component"; // Column Definition Type Interface
+import {InvestmentDetailLinkComponent} from "./investment-detail-link/investment-detail-link.component";
+import {GoogleMap} from "@angular/google-maps"; // Column Definition Type Interface
 
 @Component({
   selector: 'app-investment-table',
@@ -15,6 +16,7 @@ import {InvestmentDetailLinkComponent} from "./investment-detail-link/investment
     NgIf,
     AsyncPipe,
     FormsModule,
+    GoogleMap,
   ],
   templateUrl: './investment-table.component.html',
   styleUrl: './investment-table.component.css'
@@ -31,15 +33,16 @@ export class InvestmentTableComponent implements OnInit {
   ngOnInit() {
     this.investmentService.getInvestments().subscribe(
       (data: any) => {
-        this.investments = data
-        this.isLoadingInvestments = false
+        this.investments = data;
+        this.isLoadingInvestments = false;
       }
     )
   }
 
   columnDefs: ColDef[] = [
+    {field: 'codeuai'},
     {field: 'ville'},
-    {field: 'etat_d_avancement'},
+    {field: 'etatDAvancement'},
     {
       field: 'actions',
       cellRenderer: InvestmentDetailLinkComponent,

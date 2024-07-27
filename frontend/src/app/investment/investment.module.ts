@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import {InvestmentComponent} from "./investment/investment.component";
 
 
 
@@ -7,6 +8,6 @@ import { CommonModule } from '@angular/common';
   declarations: [],
   imports: [
     CommonModule
-  ]
+  ],
 })
 export class InvestmentModule { }

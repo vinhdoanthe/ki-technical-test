@@ -1,0 +1,19 @@
+<form [formGroup]="investmentForm" (ngSubmit)="onSubmit()">
+  <div class="row">
+    <div *ngFor="let control of investmentForm.controls|keyvalue" class="col-6">
+      <div class="row">
+        <div class="col-6">
+          <label>{{control.key}}</label>
+        </div>
+        <div class="col-6">
+          <input type="text" formControlName="{{control.key}}" id="{{control.key}}" name="{{control.key}}">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <button type="button" class="btn btn-outline-secondary" (click)="goBack()">Back</button>
+    <button type="submit" class="btn btn-outline-primary" >Save</button>
+  </div>
+</form>
+
