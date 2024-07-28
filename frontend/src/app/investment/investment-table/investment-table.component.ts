@@ -5,7 +5,8 @@ import {AgGridAngular} from 'ag-grid-angular'; // Angular Data Grid Component
 import {ColDef} from 'ag-grid-community';
 import {FormsModule} from "@angular/forms";
 import {InvestmentDetailLinkComponent} from "./investment-detail-link/investment-detail-link.component";
-import {GoogleMap} from "@angular/google-maps"; // Column Definition Type Interface
+import {GoogleMap} from "@angular/google-maps";
+import {AgCharts} from "ag-charts-angular"; // Column Definition Type Interface
 
 @Component({
   selector: 'app-investment-table',
@@ -17,6 +18,7 @@ import {GoogleMap} from "@angular/google-maps"; // Column Definition Type Interf
     AsyncPipe,
     FormsModule,
     GoogleMap,
+    AgCharts,
   ],
   templateUrl: './investment-table.component.html',
   styleUrl: './investment-table.component.css'
@@ -31,12 +33,7 @@ export class InvestmentTableComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.investmentService.getInvestments().subscribe(
-      (data: any) => {
-        this.investments = data;
-        this.isLoadingInvestments = false;
-      }
-    )
+    this.filter_investments();
   }
 
   columnDefs: ColDef[] = [
@@ -50,6 +47,7 @@ export class InvestmentTableComponent implements OnInit {
   ];
   ville: any;
   etat_d_avancement: any;
+  agChartOptions: any;
 
   filter_investments() {
     this.isLoadingInvestments = true
@@ -60,7 +58,37 @@ export class InvestmentTableComponent implements OnInit {
       (data: any) => {
         this.investments = data
         this.isLoadingInvestments = false
+        this.agChartOptions = {
+          data: this.calculateAnneeDIndividualisationStats(),
+          series: [
+            {
+              xKey: 'anneeDIndividualisation',
+              yKey: 'count',
+              type: 'line',
+            }
+          ]
+        }
       }
     )
+  }
+
+  // We could do this in the backend, but we're doing it here for demonstration purposes
+  private calculateAnneeDIndividualisationStats() {
+    const anneeDIndividualisationStats = <any>{}
+    for (const investment of this.investments) {
+      if (investment.anneeDIndividualisation in anneeDIndividualisationStats) {
+        anneeDIndividualisationStats[investment.anneeDIndividualisation] += 1
+      } else {
+        anneeDIndividualisationStats[investment.anneeDIndividualisation] = 1
+      }
+    }
+    const anneeDIndividualisationStatsSeries = <any>[]
+    for (const anneeDIndividualisation in anneeDIndividualisationStats) {
+      anneeDIndividualisationStatsSeries.push({
+        anneeDIndividualisation: anneeDIndividualisation,
+        count: anneeDIndividualisationStats[anneeDIndividualisation]
+      })
+    }
+    return anneeDIndividualisationStatsSeries
   }
 }
