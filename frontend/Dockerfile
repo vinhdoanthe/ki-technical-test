@@ -8,5 +8,6 @@ WORKDIR /app
 COPY . /app
 
 # Install any needed packages specified in package.json
+RUN npm install -g @angular/cli
 RUN npm install
 

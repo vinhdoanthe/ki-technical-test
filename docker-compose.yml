@@ -8,21 +8,10 @@ services:
       - "8000:8000"
     depends_on:
       - db
-      - migrate_db
     env_file:
       - backend/.env
       - backend/.env.override
     restart: always
-  migrate_db:
-    build: backend
-    command: python manage.py migrate
-    volumes:
-      - ./backend:/app
-    depends_on:
-      - db
-    env_file:
-      - backend/.env
-      - backend/.env.override
   frontend:
     build: frontend
     command: npm start -- --host 0.0.0.0
