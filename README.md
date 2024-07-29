@@ -12,6 +12,7 @@
 | 6 | Write the documentation (README.md) | 2024-07-27 | 2024-07-27 | [ ] |
 
 ## How to start the development
+<mark>This project requires Docker and Docker Compose to run, and tested with Macbook Pro 14 M1 Pro</mark>
 
 Clone the repository and go to the project directory
 ```
