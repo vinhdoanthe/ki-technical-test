@@ -98,3 +98,14 @@ export class InvestmentAdapter {
     );
   }
 }
+
+export function investmentToGoogleMapMarker(investment: Investment) {
+  return {
+    position: {
+      lat: investment.latitude,
+      lng: investment.longitude
+    },
+    title: investment.titreoperation,
+    label: investment.codeuai
+  }
+}

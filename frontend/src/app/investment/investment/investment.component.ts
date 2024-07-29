@@ -2,8 +2,9 @@ import {Component, inject, Input, OnInit} from '@angular/core';
 import {ActivatedRoute, RouterLink} from "@angular/router";
 import {InvestmentService} from "../investment.service";
 import {JsonPipe, KeyValuePipe, NgForOf} from "@angular/common";
-import {GoogleMap} from "@angular/google-maps";
+import {GoogleMap, MapMarker} from "@angular/google-maps";
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {investmentToGoogleMapMarker} from "../investment.model";
 
 @Component({
   selector: 'app-investment',
@@ -15,7 +16,8 @@ import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule} from "@angular
     RouterLink,
     GoogleMap,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MapMarker
   ],
   templateUrl: './investment.component.html',
   styleUrl: './investment.component.css'
@@ -27,6 +29,7 @@ export class InvestmentComponent implements OnInit {
   @Input() id: number = 0;
   public investment = <any>{};
   public editMode = false;
+  public googleMapMarker = <any>{};
 
   constructor(
     private investmentService: InvestmentService,
@@ -41,6 +44,7 @@ export class InvestmentComponent implements OnInit {
       this.investmentService.getInvestment(this.id).subscribe(
         (data: any) => {
           this.investment = data
+          this.googleMapMarker = investmentToGoogleMapMarker(this.investment)
           this.investmentForm = this.formBuilder.group({
             codeuai: [this.investment?.codeuai],
             longitude: [this.investment?.longitude],

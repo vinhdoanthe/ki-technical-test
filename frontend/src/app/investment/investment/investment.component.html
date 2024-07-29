@@ -20,8 +20,16 @@
     <a class="btn btn-outline-primary" (click)="onClickEdit()">Edit</a>
   </div>
   <div class="pt-3">
-    <h2>Investment's location</h2>
-    <google-map></google-map>
+    <h2>Location</h2>
+    <google-map
+      [center]="googleMapMarker.position"
+    >
+      <map-marker
+        [position]="googleMapMarker.position"
+        [label]="googleMapMarker.label"
+        [title]="googleMapMarker.title">
+      </map-marker>
+    </google-map>
   </div>
 }
 @else {
