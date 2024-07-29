@@ -80,7 +80,14 @@ export class InvestmentComponent implements OnInit {
   }
 
   onSubmit() {
-    this.investmentService.updateInvestment(this.investment.id, this.investmentForm.value).subscribe(
+    const formValue = this.investmentForm.value
+    const postData = {
+      'codeuai': formValue.codeuai,
+      'ville': formValue.ville,
+      'titreoperation': formValue.titreoperation,
+      'etat_d_avancement': formValue.etatDAvancement,
+    }
+    this.investmentService.updateInvestment(this.investment.id, postData).subscribe(
       (data: any) => {
         this.investment = data
         this.editMode = false

@@ -43,27 +43,7 @@ export class InvestmentService {
   public updateInvestment(investmentId: number, data: any) {
     return this.http.patch(
       `${environment.API_URL}/investments/${investmentId}/`,
-      {
-        'codeuai': data.codeuai,
-        'longitude': data.longitude,
-        'latitude': data.latitude,
-        'lycee': data.lycee,
-        'ville': data.ville,
-        'ppi': data.ppi,
-        'annee_d_individualisation': data.anneeDIndividualisation,
-        'titreoperation': data.titreoperation,
-        'enveloppe_prev_en_meur': data.enveloppePrevEnMeur,
-        'montant_des_ap_votes_en_meur': data.montantDesApVotesEnMeur,
-        'mandataire': data.mandataire,
-        'maitrise_d_oeuvre': data.maitriseDOeuvre,
-        'notification_du_marche': data.notificationDuMarche,
-        'entreprise': data.entreprise,
-        'mode_de_devolution': data.modeDeDevolution,
-        'nombre_de_lots': data.nombreDeLots,
-        'cao_attribution': data.caoAttribution,
-        'etat_d_avancement': data.etatDAvancement,
-        'annee_de_livraison': data.anneeDeLivraison,
-      },
+      data,
     ).pipe(
       map((data: any) => this.adapter.adapt(data))
     );
