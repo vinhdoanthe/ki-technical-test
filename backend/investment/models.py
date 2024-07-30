@@ -21,3 +21,9 @@ class Investment(models.Model):
     cao_attribution = models.DateField(blank=True, null=True)
     etat_d_avancement = models.CharField(max_length=255)
     annee_de_livraison = models.FloatField(blank=True, null=True)
+
+    def __str__(self):
+        return '{}-{}'.format(
+            self.codeuai,
+            self.ville,
+        )
